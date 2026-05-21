@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de compras — HomeApps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F5F2EB;
+      --surface: #FDFCF8;
+      --border: #E0DBD0;
+      --text: #1A1815;
+      --muted: #7A7570;
+      --accent: #C97D2A;
+      --accent-light: #FBF3E6;
+      --green: #2D6A4F;
+      --green-light: #E8F5EF;
+      --coral: #C0453A;
+      --coral-light: #FAEAE9;
+      --font-display: 'DM Serif Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-left { display: flex; align-items: center; gap: 12px; }
+
+    .back-link {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .header-sep {
+      width: 1px;
+      height: 18px;
+      background: var(--border);
+    }
+
+    .header-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+    }
+
+    /* HERO */
+    .hero { margin-bottom: 2rem; }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .stat {
+      background: var(--surface);
+      padding: 1.1rem 1.5rem;
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 26px;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .stat-value.amber { color: var(--accent); }
+    .stat-value.green { color: var(--green); }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* LAYOUT GRID */
+    .layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    /* FORM */
+    .form-group { margin-bottom: 1rem; }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 5px;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text);
+      background: var(--surface);
+      transition: border-color 0.15s;
+      outline: none;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--accent);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: 1px solid transparent;
+      width: 100%;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-primary:hover { background: #b06a1f; }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+      width: auto;
+    }
+    .btn-secondary:hover { background: var(--bg); }
+
+    .btn-danger {
+      background: var(--coral-light);
+      color: var(--coral);
+      width: auto;
+    }
+    .btn-danger:hover { background: #f5d5d3; }
+
+    /* FILTERS */
+    .filters {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .filter-chip {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-chip:hover,
+    .filter-chip.active {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* LIST HEADER */
+    .list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    /* ITEM LIST */
+    .items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    /* ITEM */
+    .item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: opacity 0.2s, background 0.2s;
+    }
+
+    .item.bought {
+      opacity: 0.55;
+      background: var(--bg);
+    }
+
+    .item-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      background: transparent;
+    }
+
+    .item-check:hover { border-color: var(--accent); }
+
+    .item.bought .item-check {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .item-check-icon {
+      display: none;
+      width: 10px;
+      height: 10px;
+    }
+
+    .item.bought .item-check-icon { display: block; }
+
+    .item-body { flex: 1; min-width: 0; }
+
+    .item-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item.bought .item-name {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    .item-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2px;
+    }
+
+    .item-qty {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* CATEGORY BADGE */
+    .cat-badge {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 20px;
+    }
+
+    .cat-Verdulería  { background: #E8F5EF; color: #2D6A4F; }
+    .cat-Carnicería  { background: #FAEAE9; color: #C0453A; }
+    .cat-Lácteos     { background: #E8EFFE; color: #2A5FA0; }
+    .cat-Almacén     { background: #FBF3E6; color: #C97D2A; }
+    .cat-Limpieza    { background: #F0EAFE; color: #6B4FA0; }
+    .cat-Panadería   { background: #FFF3E0; color: #E65100; }
+    .cat-Bebidas     { background: #E3F2FD; color: #1565C0; }
+    .cat-Otros       { background: #F5F2EB; color: #7A7570; }
+
+    .item-delete {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 4px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      transition: color 0.15s, background 0.15s;
+      flex-shrink: 0;
+    }
+
+    .item-delete:hover {
+      color: var(--coral);
+      background: var(--coral-light);
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 3.5rem 2rem;
+      color: var(--muted);
+    }
+
+    .empty-icon { font-size: 36px; margin-bottom: 0.75rem; opacity: 0.4; }
+    .empty-state h3 { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .empty-state p { font-size: 13px; }
+
+    /* SECTION DIVIDER */
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 1.25rem 0 0.5rem;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 720px) {
+      .layout { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+      .stats-bar { grid-template-columns: repeat(3, 1fr); }
+      main { padding: 1.5rem 1rem; }
+      header { padding: 0 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-bar { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="../../index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      Inicio
+    </a>
+    <div class="header-sep"></div>
+    <span class="header-title">Lista de compras</span>
+  </div>
+</header>
+
+<main>
+
+  <div class="hero">
+    <p class="hero-label">App 02</p>
+    <h1>Lista de compras</h1>
+    <p>Organizá las compras del supermercado por categoría, marcá lo que ya llevaste y llevá siempre la lista al día.</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-value amber" id="stat-pending">0</div>
+      <div class="stat-label">Pendientes</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value green" id="stat-bought">0</div>
+      <div class="stat-label">Comprados</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="stat-total">0</div>
+      <div class="stat-label">Total ítems</div>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <!-- FORM -->
+    <aside>
+      <div class="card">
+        <p class="card-title">Agregar ítem</p>
+
+        <div class="form-group">
+          <label class="form-label" for="inp-name">Nombre</label>
+          <input id="inp-name" class="form-input" type="text" placeholder="Ej: Tomate, Leche…" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inp-cat">Categoría</label>
+          <select id="inp-cat" class="form-select">
+            <option value="Verdulería">Verdulería</option>
+            <option value="Carnicería">Carnicería</option>
+            <option value="Lácteos">Lácteos</option>
+            <option value="Almacén" selected>Almacén</option>
+            <option value="Limpieza">Limpieza</option>
+            <option value="Panadería">Panadería</option>
+            <option value="Bebidas">Bebidas</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="inp-qty">Cantidad</label>
+            <input id="inp-qty" class="form-input" type="number" min="0.1" step="0.1" value="1" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inp-unit">Unidad</label>
+            <select id="inp-unit" class="form-select">
+              <option value="unidad">unidad</option>
+              <option value="kg">kg</option>
+              <option value="g">g</option>
+              <option value="litros">litros</option>
+              <option value="ml">ml</option>
+              <option value="pack">pack</option>
+              <option value="docena">docena</option>
+              <option value="bolsa">bolsa</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="addItem()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          Agregar ítem
+        </button>
+      </div>
+    </aside>
+
+    <!-- LIST -->
+    <section>
+      <div class="list-header">
+        <div class="filters" id="filter-bar">
+          <button class="filter-chip active" data-cat="Todos" onclick="setFilter('Todos', this)">Todos</button>
+          <button class="filter-chip" data-cat="Verdulería"  onclick="setFilter('Verdulería', this)">Verdulería</button>
+          <button class="filter-chip" data-cat="Carnicería"  onclick="setFilter('Carnicería', this)">Carnicería</button>
+          <button class="filter-chip" data-cat="Lácteos"     onclick="setFilter('Lácteos', this)">Lácteos</button>
+          <button class="filter-chip" data-cat="Almacén"     onclick="setFilter('Almacén', this)">Almacén</button>
+          <button class="filter-chip" data-cat="Limpieza"    onclick="setFilter('Limpieza', this)">Limpieza</button>
+          <button class="filter-chip" data-cat="Panadería"   onclick="setFilter('Panadería', this)">Panadería</button>
+          <button class="filter-chip" data-cat="Bebidas"     onclick="setFilter('Bebidas', this)">Bebidas</button>
+          <button class="filter-chip" data-cat="Otros"       onclick="setFilter('Otros', this)">Otros</button>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; margin-bottom:1rem;">
+        <button class="btn btn-danger" onclick="clearBought()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
+          </svg>
+          Limpiar comprados
+        </button>
+      </div>
+
+      <div id="list-container"></div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  Todos los datos se guardan localmente en tu dispositivo · <a href="../../index.html" style="color:var(--accent);text-decoration:none;">← Volver al inicio</a>
+</footer>
+
+<script>
+  const STORAGE_KEY = 'homeapps_compras_v1';
+  let items = [];
+  let activeFilter = 'Todos';
+
+  function load() {
+    try {
+      items = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch { items = []; }
+  }
+
+  function save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  }
+
+  function uid() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2);
+  }
+
+  function addItem() {
+    const name = document.getElementById('inp-name').value.trim();
+    if (!name) {
+      document.getElementById('inp-name').focus();
+      return;
+    }
+    const cat   = document.getElementById('inp-cat').value;
+    const qty   = parseFloat(document.getElementById('inp-qty').value) || 1;
+    const unit  = document.getElementById('inp-unit').value;
+
+    items.unshift({ id: uid(), name, cat, qty, unit, bought: false });
+    save();
+    document.getElementById('inp-name').value = '';
+    document.getElementById('inp-name').focus();
+    render();
+  }
+
+  function toggleBought(id) {
+    const item = items.find(i => i.id === id);
+    if (item) { item.bought = !item.bought; save(); render(); }
+  }
+
+  function deleteItem(id) {
+    items = items.filter(i => i.id !== id);
+    save();
+    render();
+  }
+
+  function clearBought() {
+    const bought = items.filter(i => i.bought).length;
+    if (bought === 0) return;
+    if (!confirm(`¿Eliminar los ${bought} ítem(s) ya comprados?`)) return;
+    items = items.filter(i => !i.bought);
+    save();
+    render();
+  }
+
+  function setFilter(cat, el) {
+    activeFilter = cat;
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    render();
+  }
+
+  function fmtQty(qty, unit) {
+    const n = qty % 1 === 0 ? qty : qty.toFixed(1);
+    return `${n} ${unit}`;
+  }
+
+  function render() {
+    const pending = items.filter(i => !i.bought).length;
+    const bought  = items.filter(i => i.bought).length;
+    document.getElementById('stat-pending').textContent = pending;
+    document.getElementById('stat-bought').textContent  = bought;
+    document.getElementById('stat-total').textContent   = items.length;
+
+    const filtered = activeFilter === 'Todos'
+      ? items
+      : items.filter(i => i.cat === activeFilter);
+
+    const container = document.getElementById('list-container');
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🛒</div>
+          <h3>${activeFilter === 'Todos' ? 'La lista está vacía' : 'Sin ítems en esta categoría'}</h3>
+          <p>${activeFilter === 'Todos' ? 'Agregá tu primer ítem con el formulario.' : 'Probá con otro filtro o agregá un ítem.'}</p>
+        </div>`;
+      return;
+    }
+
+    const pending_items = filtered.filter(i => !i.bought);
+    const bought_items  = filtered.filter(i => i.bought);
+
+    let html = '';
+
+    if (pending_items.length > 0) {
+      html += `<div class="items-list">` + pending_items.map(itemHTML).join('') + `</div>`;
+    }
+
+    if (bought_items.length > 0) {
+      if (pending_items.length > 0) html += `<p class="section-label">Comprados</p>`;
+      html += `<div class="items-list">` + bought_items.map(itemHTML).join('') + `</div>`;
+    }
+
+    container.innerHTML = html;
+  }
+
+  function itemHTML(item) {
+    return `
+      <div class="item${item.bought ? ' bought' : ''}" id="item-${item.id}">
+        <button class="item-check" onclick="toggleBought('${item.id}')" title="${item.bought ? 'Marcar como pendiente' : 'Marcar como comprado'}">
+          <svg class="item-check-icon" viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1.5,5 4,7.5 8.5,2.5"/>
+          </svg>
+        </button>
+        <div class="item-body">
+          <div class="item-name">${escHtml(item.name)}</div>
+          <div class="item-meta">
+            <span class="cat-badge cat-${item.cat}">${item.cat}</span>
+            <span class="item-qty">${fmtQty(item.qty, item.unit)}</span>
+          </div>
+        </div>
+        <button class="item-delete" onclick="deleteItem('${item.id}')" title="Eliminar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>`;
+  }
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  document.getElementById('inp-name').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addItem();
+  });
+
+  load();
+  render();
+</script>
+
+</body>
+</html>
