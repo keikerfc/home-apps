@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Apps — Gestión del Hogar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F5F2EB;
+      --surface: #FDFCF8;
+      --border: #E0DBD0;
+      --text: #1A1815;
+      --muted: #7A7570;
+      --accent: #2D6A4F;
+      --accent-light: #E8F5EF;
+      --amber: #C97D2A;
+      --amber-light: #FBF3E6;
+      --coral: #C0453A;
+      --coral-light: #FAEAE9;
+      --blue: #2A5FA0;
+      --blue-light: #E8EFFE;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg { width: 18px; height: 18px; fill: white; }
+
+    .logo-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      letter-spacing: -0.3px;
+      color: var(--text);
+    }
+
+    .logo-name span { color: var(--accent); }
+
+    .header-date {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* MAIN */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    /* HERO */
+    .hero {
+      margin-bottom: 3rem;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 42px;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+
+    .stat {
+      background: var(--surface);
+      padding: 1.25rem 1.5rem;
+    }
+
+    .stat-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    /* APPS GRID */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .app-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--card-accent);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .app-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      border-color: transparent;
+    }
+
+    .app-card:hover::before { opacity: 1; }
+
+    .app-card.coming-soon {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--icon-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .card-icon svg { width: 22px; height: 22px; }
+
+    .card-name {
+      font-weight: 500;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-badge {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: var(--badge-bg);
+      color: var(--badge-color);
+    }
+
+    .card-arrow {
+      font-size: 18px;
+      color: var(--muted);
+      transition: transform 0.15s;
+    }
+
+    .app-card:hover .card-arrow { transform: translateX(3px); }
+
+    /* COLORS PER CARD */
+    .card-gastos  { --card-accent: #2D6A4F; --icon-bg: #E8F5EF; --badge-bg: #E8F5EF; --badge-color: #2D6A4F; }
+    .card-compras { --card-accent: #C97D2A; --icon-bg: #FBF3E6; --badge-bg: #FBF3E6; --badge-color: #C97D2A; }
+    .card-mant    { --card-accent: #2A5FA0; --icon-bg: #E8EFFE; --badge-bg: #E8EFFE; --badge-color: #2A5FA0; }
+    .card-serv    { --card-accent: #6B4FA0; --icon-bg: #F0EAFE; --badge-bg: #F0EAFE; --badge-color: #6B4FA0; }
+    .card-agenda  { --card-accent: #C0453A; --icon-bg: #FAEAE9; --badge-bg: #FAEAE9; --badge-color: #C0453A; }
+    .card-inv     { --card-accent: #4A7C59; --icon-bg: #EAF3DE; --badge-bg: #EAF3DE; --badge-color: #4A7C59; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 30px; }
+      .stats-bar { grid-template-columns: 1fr; }
+      main { padding: 2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+      </svg>
+    </div>
+    <span class="logo-name">Home<span>Apps</span></span>
+  </div>
+  <span class="header-date" id="currentDate"></span>
+</header>
+
+<main>
+  <div class="hero">
+    <p class="hero-label">Panel de gestión</p>
+    <h1>Tu hogar,<br>bajo control.</h1>
+    <p>Herramientas simples para gestionar gastos, compras, mantenimiento y más — todo en un solo lugar.</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-value" id="stat-apps">1</div>
+      <div class="stat-label">Apps disponibles</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">0</div>
+      <div class="stat-label">Datos en la nube (privado 100%)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="stat-version">v1.0</div>
+      <div class="stat-label">Versión actual</div>
+    </div>
+  </div>
+
+  <p class="section-title">Aplicaciones</p>
+
+  <div class="apps-grid">
+
+    <a href="apps/gastos/index.html" class="app-card card-gastos">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v2M12 16v2M8.5 9.5a3.5 1.5 0 017 0c0 .83-.67 1.5-1.5 1.5h-4A1.5 1.5 0 008.5 12.5a3.5 1.5 0 007 0"/>
+        </svg>
+      </div>
+      <div class="card-name">Gastos del hogar</div>
+      <div class="card-desc">Registrá y analizá todos los gastos del hogar por categoría y mes.</div>
+      <div class="card-footer">
+        <span class="card-badge">Disponible</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="apps/compras/index.html" class="app-card card-compras coming-soon">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C97D2A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+      </div>
+      <div class="card-name">Lista de compras</div>
+      <div class="card-desc">Organizá las compras del supermercado por categoría y frecuencia.</div>
+      <div class="card-footer">
+        <span class="card-badge">Próximamente</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="apps/mantenimiento/index.html" class="app-card card-mant coming-soon">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2A5FA0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+        </svg>
+      </div>
+      <div class="card-name">Mantenimiento</div>
+      <div class="card-desc">Registrá tareas de mantenimiento del hogar con recordatorios.</div>
+      <div class="card-footer">
+        <span class="card-badge">Próximamente</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="apps/servicios/index.html" class="app-card card-serv coming-soon">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#6B4FA0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+      </div>
+      <div class="card-name">Servicios & consumos</div>
+      <div class="card-desc">Seguimiento de luz, gas y agua con alertas de desvío.</div>
+      <div class="card-footer">
+        <span class="card-badge">Próximamente</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="apps/agenda/index.html" class="app-card card-agenda coming-soon">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C0453A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+      </div>
+      <div class="card-name">Agenda familiar</div>
+      <div class="card-desc">Eventos, turnos médicos y fechas importantes en familia.</div>
+      <div class="card-footer">
+        <span class="card-badge">Próximamente</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="apps/inventario/index.html" class="app-card card-inv coming-soon">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4A7C59" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="6" x2="21" y2="6"/>
+          <line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/>
+          <line x1="3" y1="12" x2="3.01" y2="12"/>
+          <line x1="3" y1="18" x2="3.01" y2="18"/>
+        </svg>
+      </div>
+      <div class="card-name">Inventario del hogar</div>
+      <div class="card-desc">Bienes, garantías y documentos del hogar en un solo lugar.</div>
+      <div class="card-footer">
+        <span class="card-badge">Próximamente</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  Hecho con ❤ · <a href="https://github.com/TU-USUARIO/home-apps" target="_blank">Ver en GitHub</a> · Todos los datos se guardan localmente en tu dispositivo.
+</footer>
+
+<script>
+  const d = new Date();
+  const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('currentDate').textContent = d.toLocaleDateString('es-AR', opts);
+</script>
+
+</body>
+</html>
