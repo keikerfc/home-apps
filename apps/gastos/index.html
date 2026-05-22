@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home Apps — Gestión del Hogar</title>
+  <title>Gastos del hogar — HomeApps</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
@@ -23,13 +23,20 @@
       --coral-light: #FAEAE9;
       --blue: #2A5FA0;
       --blue-light: #E8EFFE;
+      --font-display: 'DM Serif Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
     }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
     }
 
     /* HEADER */
@@ -40,55 +47,42 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      height: 60px;
       position: sticky;
       top: 0;
       z-index: 10;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .header-left { display: flex; align-items: center; gap: 12px; }
 
-    .logo-icon {
-      width: 32px;
-      height: 32px;
-      background: var(--accent);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .logo-icon svg { width: 18px; height: 18px; fill: white; }
-
-    .logo-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 20px;
-      letter-spacing: -0.3px;
-      color: var(--text);
-    }
-
-    .logo-name span { color: var(--accent); }
-
-    .header-date {
+    .back-link {
       font-size: 13px;
       color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .header-sep { width: 1px; height: 18px; background: var(--border); }
+
+    .header-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: -0.2px;
     }
 
     /* MAIN */
     main {
       max-width: 960px;
       margin: 0 auto;
-      padding: 3rem 2rem;
+      padding: 2.5rem 2rem;
     }
 
     /* HERO */
-    .hero {
-      margin-bottom: 3rem;
-    }
+    .hero { margin-bottom: 2rem; }
 
     .hero-label {
       font-size: 11px;
@@ -96,23 +90,21 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
     }
 
     .hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 42px;
+      font-family: var(--font-display);
+      font-size: 36px;
       line-height: 1.15;
       letter-spacing: -0.5px;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.4rem;
     }
 
     .hero p {
-      font-size: 16px;
+      font-size: 15px;
       color: var(--muted);
       font-weight: 300;
-      max-width: 480px;
-      line-height: 1.6;
     }
 
     /* STATS BAR */
@@ -122,140 +114,249 @@
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       overflow: hidden;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
 
     .stat {
       background: var(--surface);
-      padding: 1.25rem 1.5rem;
+      padding: 1.1rem 1.5rem;
     }
 
     .stat-value {
-      font-family: 'DM Serif Display', serif;
-      font-size: 28px;
+      font-family: var(--font-display);
+      font-size: 26px;
       color: var(--text);
       line-height: 1;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
-    .stat-label {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 400;
+    .stat-value.green { color: var(--accent); }
+    .stat-value.amber { color: var(--amber); }
+
+    .stat-label { font-size: 12px; color: var(--muted); }
+
+    /* LAYOUT */
+    .layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 1.5rem;
+      align-items: start;
     }
 
-    /* SECTION TITLE */
-    .section-title {
+    /* CARD */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    .card-title {
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    /* FORM */
+    .form-group { margin-bottom: 1rem; }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 5px;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--text);
+      background: var(--surface);
+      transition: border-color 0.15s;
+      outline: none;
+    }
+
+    .form-input:focus, .form-select:focus { border-color: var(--accent); }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: 1px solid transparent;
+    }
+
+    .btn-full { width: 100%; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-primary:hover { background: #245940; }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover { background: var(--bg); }
+
+    .btn-danger {
+      background: var(--coral-light);
+      color: var(--coral);
+    }
+    .btn-danger:hover { background: #f5d5d3; }
+
+    /* FILTERS */
+    .filter-row {
+      display: flex;
+      gap: 0.75rem;
       margin-bottom: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    /* APPS GRID */
-    .apps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-      margin-bottom: 3rem;
+    .filter-row .form-select {
+      width: auto;
+      flex: 1;
+      min-width: 120px;
     }
 
-    .app-card {
+    /* EXPENSE LIST */
+    .expense-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .expense-item {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
-      position: relative;
-      overflow: hidden;
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
-    .app-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--card-accent);
-      opacity: 0;
-      transition: opacity 0.15s;
-    }
-
-    .app-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
-      border-color: transparent;
-    }
-
-    .app-card:hover::before { opacity: 1; }
-
-    .app-card.coming-soon {
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
-    .card-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: var(--icon-bg);
+    .expense-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1rem;
-    }
-
-    .card-icon svg { width: 22px; height: 22px; }
-
-    .card-name {
-      font-weight: 500;
       font-size: 16px;
-      margin-bottom: 4px;
+      flex-shrink: 0;
     }
 
-    .card-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-      margin-bottom: 1rem;
+    .expense-body { flex: 1; min-width: 0; }
+
+    .expense-desc {
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .card-footer {
+    .expense-meta {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: 2px;
     }
 
-    .card-badge {
+    .expense-date { font-size: 12px; color: var(--muted); }
+
+    .cat-badge {
       font-size: 10px;
       font-weight: 500;
-      padding: 3px 8px;
+      padding: 2px 7px;
       border-radius: 20px;
-      background: var(--badge-bg);
-      color: var(--badge-color);
     }
 
-    .card-arrow {
-      font-size: 18px;
+    .expense-amount {
+      font-family: var(--font-display);
+      font-size: 16px;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+
+    .expense-delete {
+      background: none;
+      border: none;
+      cursor: pointer;
       color: var(--muted);
-      transition: transform 0.15s;
+      padding: 4px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      transition: color 0.15s, background 0.15s;
+      flex-shrink: 0;
+    }
+    .expense-delete:hover { color: var(--coral); background: var(--coral-light); }
+
+    /* MONTH DIVIDER */
+    .month-divider {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 1.25rem 0 0.5rem;
     }
 
-    .app-card:hover .card-arrow { transform: translateX(3px); }
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 3.5rem 2rem;
+      color: var(--muted);
+    }
+    .empty-icon { font-size: 36px; margin-bottom: 0.75rem; opacity: 0.4; }
+    .empty-state h3 { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .empty-state p { font-size: 13px; }
 
-    /* COLORS PER CARD */
-    .card-gastos  { --card-accent: #2D6A4F; --icon-bg: #E8F5EF; --badge-bg: #E8F5EF; --badge-color: #2D6A4F; }
-    .card-compras { --card-accent: #C97D2A; --icon-bg: #FBF3E6; --badge-bg: #FBF3E6; --badge-color: #C97D2A; }
-    .card-mant    { --card-accent: #2A5FA0; --icon-bg: #E8EFFE; --badge-bg: #E8EFFE; --badge-color: #2A5FA0; }
-    .card-serv    { --card-accent: #6B4FA0; --icon-bg: #F0EAFE; --badge-bg: #F0EAFE; --badge-color: #6B4FA0; }
-    .card-agenda  { --card-accent: #C0453A; --icon-bg: #FAEAE9; --badge-bg: #FAEAE9; --badge-color: #C0453A; }
-    .card-inv     { --card-accent: #4A7C59; --icon-bg: #EAF3DE; --badge-bg: #EAF3DE; --badge-color: #4A7C59; }
+    /* CATEGORY COLORS */
+    .cat-Alimentación   { background: #E8F5EF; color: #2D6A4F; }
+    .cat-Transporte     { background: #E8EFFE; color: #2A5FA0; }
+    .cat-Servicios      { background: #F0EAFE; color: #6B4FA0; }
+    .cat-Salud          { background: #FAEAE9; color: #C0453A; }
+    .cat-Educación      { background: #FBF3E6; color: #C97D2A; }
+    .cat-Entretenimiento{ background: #FFF3E0; color: #E65100; }
+    .cat-Ropa           { background: #FCE4EC; color: #AD1457; }
+    .cat-Hogar          { background: #EAF3DE; color: #4A7C59; }
+    .cat-Otros          { background: #F5F2EB; color: #7A7570; }
+
+    .icon-Alimentación   { background: #E8F5EF; }
+    .icon-Transporte     { background: #E8EFFE; }
+    .icon-Servicios      { background: #F0EAFE; }
+    .icon-Salud          { background: #FAEAE9; }
+    .icon-Educación      { background: #FBF3E6; }
+    .icon-Entretenimiento{ background: #FFF3E0; }
+    .icon-Ropa           { background: #FCE4EC; }
+    .icon-Hogar          { background: #EAF3DE; }
+    .icon-Otros          { background: #F5F2EB; }
 
     /* FOOTER */
     footer {
@@ -264,164 +365,321 @@
       font-size: 12px;
       color: var(--muted);
       border-top: 1px solid var(--border);
-      margin-top: 2rem;
+      margin-top: 3rem;
     }
 
-    footer a { color: var(--accent); text-decoration: none; }
+    @media (max-width: 720px) {
+      .layout { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+      main { padding: 1.5rem 1rem; }
+      header { padding: 0 1rem; }
+    }
 
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 30px; }
+    @media (max-width: 480px) {
       .stats-bar { grid-template-columns: 1fr; }
-      main { padding: 2rem 1rem; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+  <div class="header-left">
+    <a href="../../index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
       </svg>
-    </div>
-    <span class="logo-name">Home<span>Apps</span></span>
+      Inicio
+    </a>
+    <div class="header-sep"></div>
+    <span class="header-title">Gastos del hogar</span>
   </div>
-  <span class="header-date" id="currentDate"></span>
 </header>
 
 <main>
+
   <div class="hero">
-    <p class="hero-label">Panel de gestión</p>
-    <h1>Tu hogar,<br>bajo control.</h1>
-    <p>Herramientas simples para gestionar gastos, compras, mantenimiento y más — todo en un solo lugar.</p>
+    <p class="hero-label">App 01</p>
+    <h1>Gastos del hogar</h1>
+    <p>Registrá y analizá todos los gastos del hogar por categoría y mes. Todos los datos se guardan en tu dispositivo.</p>
   </div>
 
   <div class="stats-bar">
     <div class="stat">
-      <div class="stat-value" id="stat-apps">1</div>
-      <div class="stat-label">Apps disponibles</div>
+      <div class="stat-value green" id="stat-total">$0</div>
+      <div class="stat-label">Total este mes</div>
     </div>
     <div class="stat">
-      <div class="stat-value">0</div>
-      <div class="stat-label">Datos en la nube (privado 100%)</div>
+      <div class="stat-value" id="stat-count">0</div>
+      <div class="stat-label">Registros este mes</div>
     </div>
     <div class="stat">
-      <div class="stat-value" id="stat-version">v1.0</div>
-      <div class="stat-label">Versión actual</div>
+      <div class="stat-value amber" id="stat-top-cat">—</div>
+      <div class="stat-label">Categoría principal</div>
     </div>
   </div>
 
-  <p class="section-title">Aplicaciones</p>
+  <div class="layout">
 
-  <div class="apps-grid">
+    <!-- FORM -->
+    <aside>
+      <div class="card">
+        <p class="card-title">Nuevo gasto</p>
 
-    <a href="apps/gastos/index.html" class="app-card card-gastos">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#2D6A4F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M12 6v2M12 16v2M8.5 9.5a3.5 1.5 0 017 0c0 .83-.67 1.5-1.5 1.5h-4A1.5 1.5 0 008.5 12.5a3.5 1.5 0 007 0"/>
-        </svg>
-      </div>
-      <div class="card-name">Gastos del hogar</div>
-      <div class="card-desc">Registrá y analizá todos los gastos del hogar por categoría y mes.</div>
-      <div class="card-footer">
-        <span class="card-badge">Disponible</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
+        <div class="form-group">
+          <label class="form-label" for="inp-desc">Descripción</label>
+          <input id="inp-desc" class="form-input" type="text" placeholder="Ej: Supermercado, Nafta…" autocomplete="off" />
+        </div>
 
-    <a href="apps/compras/index.html" class="app-card card-compras coming-soon">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#C97D2A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path d="M16 10a4 4 0 01-8 0"/>
-        </svg>
-      </div>
-      <div class="card-name">Lista de compras</div>
-      <div class="card-desc">Organizá las compras del supermercado por categoría y frecuencia.</div>
-      <div class="card-footer">
-        <span class="card-badge">Próximamente</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
+        <div class="form-group">
+          <label class="form-label" for="inp-cat">Categoría</label>
+          <select id="inp-cat" class="form-select">
+            <option value="Alimentación">Alimentación</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Servicios">Servicios</option>
+            <option value="Salud">Salud</option>
+            <option value="Educación">Educación</option>
+            <option value="Entretenimiento">Entretenimiento</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
 
-    <a href="apps/mantenimiento/index.html" class="app-card card-mant coming-soon">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#2A5FA0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
-        </svg>
-      </div>
-      <div class="card-name">Mantenimiento</div>
-      <div class="card-desc">Registrá tareas de mantenimiento del hogar con recordatorios.</div>
-      <div class="card-footer">
-        <span class="card-badge">Próximamente</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
+        <div class="form-group">
+          <label class="form-label" for="inp-amount">Monto ($)</label>
+          <input id="inp-amount" class="form-input" type="number" min="0" step="0.01" placeholder="0.00" />
+        </div>
 
-    <a href="apps/servicios/index.html" class="app-card card-serv coming-soon">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#6B4FA0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-        </svg>
-      </div>
-      <div class="card-name">Servicios & consumos</div>
-      <div class="card-desc">Seguimiento de luz, gas y agua con alertas de desvío.</div>
-      <div class="card-footer">
-        <span class="card-badge">Próximamente</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
+        <div class="form-group">
+          <label class="form-label" for="inp-date">Fecha</label>
+          <input id="inp-date" class="form-input" type="date" />
+        </div>
 
-    <a href="apps/agenda/index.html" class="app-card card-agenda coming-soon">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#C0453A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-          <line x1="16" y1="2" x2="16" y2="6"/>
-          <line x1="8" y1="2" x2="8" y2="6"/>
-          <line x1="3" y1="10" x2="21" y2="10"/>
-        </svg>
+        <button class="btn btn-primary btn-full" onclick="addExpense()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          Agregar gasto
+        </button>
       </div>
-      <div class="card-name">Agenda familiar</div>
-      <div class="card-desc">Eventos, turnos médicos y fechas importantes en familia.</div>
-      <div class="card-footer">
-        <span class="card-badge">Próximamente</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
+    </aside>
 
-    <a href="apps/inventario/index.html" class="app-card card-inv coming-soon">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#4A7C59" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="8" y1="6" x2="21" y2="6"/>
-          <line x1="8" y1="12" x2="21" y2="12"/>
-          <line x1="8" y1="18" x2="21" y2="18"/>
-          <line x1="3" y1="6" x2="3.01" y2="6"/>
-          <line x1="3" y1="12" x2="3.01" y2="12"/>
-          <line x1="3" y1="18" x2="3.01" y2="18"/>
-        </svg>
+    <!-- LIST -->
+    <section>
+      <div class="filter-row">
+        <select id="filter-month" class="form-select" onchange="render()"></select>
+        <select id="filter-cat" class="form-select" onchange="render()">
+          <option value="Todas">Todas las categorías</option>
+          <option value="Alimentación">Alimentación</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Servicios">Servicios</option>
+          <option value="Salud">Salud</option>
+          <option value="Educación">Educación</option>
+          <option value="Entretenimiento">Entretenimiento</option>
+          <option value="Ropa">Ropa</option>
+          <option value="Hogar">Hogar</option>
+          <option value="Otros">Otros</option>
+        </select>
       </div>
-      <div class="card-name">Inventario del hogar</div>
-      <div class="card-desc">Bienes, garantías y documentos del hogar en un solo lugar.</div>
-      <div class="card-footer">
-        <span class="card-badge">Próximamente</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
+
+      <div id="list-container"></div>
+    </section>
 
   </div>
 </main>
 
 <footer>
-  Hecho con ❤ · <a href="https://github.com/TU-USUARIO/home-apps" target="_blank">Ver en GitHub</a> · Todos los datos se guardan localmente en tu dispositivo.
+  Todos los datos se guardan localmente en tu dispositivo · <a href="../../index.html" style="color:var(--accent);text-decoration:none;">← Volver al inicio</a>
 </footer>
 
 <script>
-  const d = new Date();
-  const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  document.getElementById('currentDate').textContent = d.toLocaleDateString('es-AR', opts);
+  const STORAGE_KEY = 'homeapps_gastos_v1';
+  const CAT_ICONS = {
+    'Alimentación':    '🛒',
+    'Transporte':      '🚗',
+    'Servicios':       '⚡',
+    'Salud':           '💊',
+    'Educación':       '📚',
+    'Entretenimiento': '🎬',
+    'Ropa':            '👕',
+    'Hogar':           '🏠',
+    'Otros':           '📌',
+  };
+
+  let expenses = [];
+
+  function load() {
+    try { expenses = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch { expenses = []; }
+  }
+
+  function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses)); }
+
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
+
+  function todayISO() {
+    const d = new Date();
+    return d.toISOString().slice(0, 10);
+  }
+
+  function addExpense() {
+    const desc   = document.getElementById('inp-desc').value.trim();
+    const cat    = document.getElementById('inp-cat').value;
+    const amount = parseFloat(document.getElementById('inp-amount').value);
+    const date   = document.getElementById('inp-date').value;
+
+    if (!desc)          { document.getElementById('inp-desc').focus(); return; }
+    if (!amount || amount <= 0) { document.getElementById('inp-amount').focus(); return; }
+    if (!date)          { document.getElementById('inp-date').focus(); return; }
+
+    expenses.unshift({ id: uid(), desc, cat, amount, date });
+    save();
+
+    document.getElementById('inp-desc').value   = '';
+    document.getElementById('inp-amount').value = '';
+    document.getElementById('inp-date').value   = todayISO();
+    document.getElementById('inp-desc').focus();
+
+    populateMonthFilter();
+    render();
+  }
+
+  function deleteExpense(id) {
+    expenses = expenses.filter(e => e.id !== id);
+    save();
+    populateMonthFilter();
+    render();
+  }
+
+  function fmtMoney(n) {
+    return '$' + n.toLocaleString('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  }
+
+  function monthKey(dateStr) { return dateStr.slice(0, 7); }
+
+  function monthLabel(ym) {
+    const [y, m] = ym.split('-');
+    const d = new Date(parseInt(y), parseInt(m) - 1, 1);
+    return d.toLocaleDateString('es-AR', { month: 'long', year: 'numeric' });
+  }
+
+  function populateMonthFilter() {
+    const sel = document.getElementById('filter-month');
+    const current = sel.value;
+
+    const months = [...new Set(expenses.map(e => monthKey(e.date)))].sort().reverse();
+    const curMonth = todayISO().slice(0, 7);
+    if (!months.includes(curMonth)) months.unshift(curMonth);
+
+    sel.innerHTML = months.map(m =>
+      `<option value="${m}">${capitalize(monthLabel(m))}</option>`
+    ).join('');
+
+    if (months.includes(current)) sel.value = current;
+    else sel.value = months[0] || curMonth;
+  }
+
+  function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+
+  function getFilteredExpenses() {
+    const month = document.getElementById('filter-month').value;
+    const cat   = document.getElementById('filter-cat').value;
+    return expenses.filter(e => {
+      const matchMonth = monthKey(e.date) === month;
+      const matchCat   = cat === 'Todas' || e.cat === cat;
+      return matchMonth && matchCat;
+    });
+  }
+
+  function updateStats() {
+    const month = document.getElementById('filter-month').value;
+    const monthExpenses = expenses.filter(e => monthKey(e.date) === month);
+
+    const total = monthExpenses.reduce((s, e) => s + e.amount, 0);
+    document.getElementById('stat-total').textContent = fmtMoney(total);
+    document.getElementById('stat-count').textContent = monthExpenses.length;
+
+    if (monthExpenses.length === 0) {
+      document.getElementById('stat-top-cat').textContent = '—';
+    } else {
+      const bycat = {};
+      monthExpenses.forEach(e => { bycat[e.cat] = (bycat[e.cat] || 0) + e.amount; });
+      const top = Object.entries(bycat).sort((a, b) => b[1] - a[1])[0][0];
+      document.getElementById('stat-top-cat').textContent = top;
+    }
+  }
+
+  function formatDate(dateStr) {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' });
+  }
+
+  function render() {
+    updateStats();
+    const filtered = getFilteredExpenses();
+    const container = document.getElementById('list-container');
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">💸</div>
+          <h3>Sin gastos registrados</h3>
+          <p>Agregá tu primer gasto con el formulario.</p>
+        </div>`;
+      return;
+    }
+
+    const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
+
+    const groups = {};
+    sorted.forEach(e => {
+      const k = monthKey(e.date);
+      if (!groups[k]) groups[k] = [];
+      groups[k].push(e);
+    });
+
+    let html = '';
+    Object.entries(groups).sort((a, b) => b[0].localeCompare(a[0])).forEach(([month, items]) => {
+      const groupTotal = items.reduce((s, e) => s + e.amount, 0);
+      html += `<div class="month-divider">${capitalize(monthLabel(month))} · ${fmtMoney(groupTotal)}</div>`;
+      html += `<div class="expense-list">`;
+      items.forEach(e => {
+        html += `
+          <div class="expense-item">
+            <div class="expense-icon icon-${e.cat}">${CAT_ICONS[e.cat] || '📌'}</div>
+            <div class="expense-body">
+              <div class="expense-desc">${escHtml(e.desc)}</div>
+              <div class="expense-meta">
+                <span class="cat-badge cat-${e.cat}">${e.cat}</span>
+                <span class="expense-date">${formatDate(e.date)}</span>
+              </div>
+            </div>
+            <div class="expense-amount">${fmtMoney(e.amount)}</div>
+            <button class="expense-delete" onclick="deleteExpense('${e.id}')" title="Eliminar">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </div>`;
+      });
+      html += `</div>`;
+    });
+
+    container.innerHTML = html;
+  }
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  document.getElementById('inp-desc').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addExpense();
+  });
+
+  load();
+  document.getElementById('inp-date').value = todayISO();
+  populateMonthFilter();
+  render();
 </script>
 
 </body>
