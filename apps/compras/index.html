@@ -8,363 +8,87 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #F5F2EB;
-      --surface: #FDFCF8;
-      --border: #E0DBD0;
-      --text: #1A1815;
-      --muted: #7A7570;
-      --accent: #C97D2A;
-      --accent-light: #FBF3E6;
-      --green: #2D6A4F;
-      --green-light: #E8F5EF;
-      --coral: #C0453A;
-      --coral-light: #FAEAE9;
-      --font-display: 'DM Serif Display', serif;
-      --font-body: 'DM Sans', sans-serif;
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
+      --bg: #F5F2EB; --surface: #FDFCF8; --border: #E0DBD0;
+      --text: #1A1815; --muted: #7A7570;
+      --accent: #C97D2A; --accent-light: #FBF3E6;
+      --green: #2D6A4F; --green-light: #E8F5EF;
+      --coral: #C0453A; --coral-light: #FAEAE9;
+      --font-display: 'DM Serif Display', serif; --font-body: 'DM Sans', sans-serif;
+      --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
     }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    /* HEADER */
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .header-left { display: flex; align-items: center; gap: 12px; }
-
-    .back-link {
-      font-size: 13px;
-      color: var(--muted);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      transition: color 0.15s;
-    }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.6; }
+    header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; height: 60px; position: sticky; top: 0; z-index: 10; gap: 12px; }
+    .back-link { font-size: 13px; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 4px; transition: color .15s; }
     .back-link:hover { color: var(--accent); }
-
-    .header-sep {
-      width: 1px;
-      height: 18px;
-      background: var(--border);
-    }
-
-    .header-title {
-      font-family: var(--font-display);
-      font-size: 18px;
-      letter-spacing: -0.2px;
-    }
-
-    /* MAIN */
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 2.5rem 2rem;
-    }
-
-    /* HERO */
+    .header-sep { width: 1px; height: 18px; background: var(--border); }
+    .header-title { font-family: var(--font-display); font-size: 18px; letter-spacing: -.2px; }
+    main { max-width: 960px; margin: 0 auto; padding: 2.5rem 2rem; }
     .hero { margin-bottom: 2rem; }
-
-    .hero-label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .hero h1 {
-      font-family: var(--font-display);
-      font-size: 36px;
-      line-height: 1.15;
-      letter-spacing: -0.5px;
-      margin-bottom: 0.4rem;
-    }
-
-    .hero p {
-      font-size: 15px;
-      color: var(--muted);
-      font-weight: 300;
-    }
-
-    /* STATS BAR */
-    .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      margin-bottom: 2rem;
-    }
-
-    .stat {
-      background: var(--surface);
-      padding: 1.1rem 1.5rem;
-    }
-
-    .stat-value {
-      font-family: var(--font-display);
-      font-size: 26px;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 3px;
-    }
-
+    .hero-label { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+    .hero h1 { font-family: var(--font-display); font-size: 36px; line-height: 1.15; letter-spacing: -.5px; margin-bottom: .4rem; }
+    .hero p { font-size: 15px; color: var(--muted); font-weight: 300; }
+    .stats-bar { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 2rem; }
+    .stat { background: var(--surface); padding: 1.1rem 1.5rem; }
+    .stat-value { font-family: var(--font-display); font-size: 26px; line-height: 1; margin-bottom: 3px; }
     .stat-value.amber { color: var(--accent); }
     .stat-value.green { color: var(--green); }
-
-    .stat-label {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* LAYOUT GRID */
-    .layout {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 1.5rem;
-      align-items: start;
-    }
-
-    /* CARD */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 1.5rem;
-    }
-
-    .card-title {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.25rem;
-    }
-
-    /* FORM */
+    .stat-label { font-size: 12px; color: var(--muted); }
+    .layout { display: grid; grid-template-columns: 320px 1fr; gap: 1.5rem; align-items: start; }
+    .sidebar { display: flex; flex-direction: column; gap: 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; }
+    .card-title { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+    .card-header .card-title { margin-bottom: 0; }
     .form-group { margin-bottom: 1rem; }
-
-    .form-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 5px;
-    }
-
-    .form-input, .form-select {
-      width: 100%;
-      padding: 9px 12px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-family: var(--font-body);
-      font-size: 14px;
-      color: var(--text);
-      background: var(--surface);
-      transition: border-color 0.15s;
-      outline: none;
-    }
-
-    .form-input:focus, .form-select:focus {
-      border-color: var(--accent);
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-    }
-
-    /* BUTTONS */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 9px 18px;
-      border-radius: var(--radius-sm);
-      font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.15s;
-      border: 1px solid transparent;
-      width: 100%;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: white;
-    }
+    .form-label { display: block; font-size: 12px; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; }
+    .form-input, .form-select { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 14px; color: var(--text); background: var(--surface); transition: border-color .15s; outline: none; }
+    .form-input:focus, .form-select:focus { border-color: var(--accent); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 18px; border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 14px; font-weight: 500; cursor: pointer; transition: all .15s; border: 1px solid transparent; width: 100%; }
+    .btn-primary { background: var(--accent); color: white; }
     .btn-primary:hover { background: #b06a1f; }
-
-    .btn-secondary {
-      background: var(--surface);
-      color: var(--text);
-      border-color: var(--border);
-      width: auto;
-    }
-    .btn-secondary:hover { background: var(--bg); }
-
-    .btn-danger {
-      background: var(--coral-light);
-      color: var(--coral);
-      width: auto;
-    }
+    .btn-danger { background: var(--coral-light); color: var(--coral); width: auto; }
     .btn-danger:hover { background: #f5d5d3; }
-
+    /* SEGMENT TOGGLE */
+    .seg-toggle { display: flex; background: var(--bg); border-radius: var(--radius-sm); padding: 2px; gap: 2px; }
+    .seg-btn { font-size: 11px; font-weight: 500; padding: 4px 9px; border-radius: 6px; border: none; cursor: pointer; background: transparent; color: var(--muted); font-family: var(--font-body); transition: all .15s; }
+    .seg-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+    /* CHART */
+    .chart-svg { display: block; margin: .75rem auto; }
+    .legend { display: flex; flex-direction: column; gap: 5px; }
+    .legend-row { display: flex; align-items: center; gap: 7px; font-size: 12px; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .legend-label { flex: 1; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .legend-val { color: var(--muted); font-size: 11px; }
+    .legend-pct { color: var(--muted); font-size: 11px; min-width: 30px; text-align: right; }
     /* FILTERS */
-    .filters {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-    }
-
-    .filter-chip {
-      font-size: 12px;
-      font-weight: 500;
-      padding: 5px 12px;
-      border-radius: 20px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .filter-chip:hover,
-    .filter-chip.active {
-      background: var(--accent-light);
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* LIST HEADER */
-    .list-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-    }
-
-    /* ITEM LIST */
-    .items-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    /* ITEM */
-    .item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 0.9rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      transition: opacity 0.2s, background 0.2s;
-    }
-
-    .item.bought {
-      opacity: 0.55;
-      background: var(--bg);
-    }
-
-    .item-check {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      border: 2px solid var(--border);
-      flex-shrink: 0;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s;
-      background: transparent;
-    }
-
+    .filters { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .filter-chip { font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); cursor: pointer; transition: all .15s; }
+    .filter-chip:hover, .filter-chip.active { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+    .list-actions { display: flex; justify-content: flex-end; margin-bottom: 1rem; }
+    /* ITEMS */
+    .items-list { display: flex; flex-direction: column; gap: .5rem; }
+    .item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: .9rem 1rem; display: flex; align-items: center; gap: .75rem; transition: opacity .2s, background .2s; }
+    .item.bought { opacity: .5; background: var(--bg); }
+    .item-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; background: transparent; }
     .item-check:hover { border-color: var(--accent); }
-
-    .item.bought .item-check {
-      background: var(--green);
-      border-color: var(--green);
-    }
-
-    .item-check-icon {
-      display: none;
-      width: 10px;
-      height: 10px;
-    }
-
-    .item.bought .item-check-icon { display: block; }
-
+    .item.bought .item-check { background: var(--green); border-color: var(--green); }
+    .check-icon { display: none; }
+    .item.bought .check-icon { display: block; }
     .item-body { flex: 1; min-width: 0; }
-
-    .item-name {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .item.bought .item-name {
-      text-decoration: line-through;
-      color: var(--muted);
-    }
-
-    .item-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 2px;
-    }
-
-    .item-qty {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* CATEGORY BADGE */
-    .cat-badge {
-      font-size: 10px;
-      font-weight: 500;
-      padding: 2px 7px;
-      border-radius: 20px;
-    }
-
+    .item-name { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .item.bought .item-name { text-decoration: line-through; color: var(--muted); }
+    .item-meta { display: flex; align-items: center; gap: .5rem; margin-top: 2px; }
+    .item-qty { font-size: 12px; color: var(--muted); }
+    .cat-badge { font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 20px; }
+    .item-delete { background: none; border: none; cursor: pointer; color: var(--muted); padding: 4px; border-radius: 6px; display: flex; align-items: center; transition: color .15s, background .15s; flex-shrink: 0; }
+    .item-delete:hover { color: var(--coral); background: var(--coral-light); }
+    .section-label { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 1.25rem 0 .5rem; }
+    .empty-state { text-align: center; padding: 3.5rem 2rem; color: var(--muted); }
+    .empty-icon { font-size: 36px; margin-bottom: .75rem; opacity: .4; }
+    .empty-state h3 { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .empty-state p { font-size: 13px; }
     .cat-Verdulería  { background: #E8F5EF; color: #2D6A4F; }
     .cat-Carnicería  { background: #FAEAE9; color: #C0453A; }
     .cat-Lácteos     { background: #E8EFFE; color: #2A5FA0; }
@@ -373,87 +97,22 @@
     .cat-Panadería   { background: #FFF3E0; color: #E65100; }
     .cat-Bebidas     { background: #E3F2FD; color: #1565C0; }
     .cat-Otros       { background: #F5F2EB; color: #7A7570; }
-
-    .item-delete {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--muted);
-      padding: 4px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      transition: color 0.15s, background 0.15s;
-      flex-shrink: 0;
-    }
-
-    .item-delete:hover {
-      color: var(--coral);
-      background: var(--coral-light);
-    }
-
-    /* EMPTY STATE */
-    .empty-state {
-      text-align: center;
-      padding: 3.5rem 2rem;
-      color: var(--muted);
-    }
-
-    .empty-icon { font-size: 36px; margin-bottom: 0.75rem; opacity: 0.4; }
-    .empty-state h3 { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
-    .empty-state p { font-size: 13px; }
-
-    /* SECTION DIVIDER */
-    .section-label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin: 1.25rem 0 0.5rem;
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 12px;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-      margin-top: 3rem;
-    }
-
-    @media (max-width: 720px) {
-      .layout { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 28px; }
-      .stats-bar { grid-template-columns: repeat(3, 1fr); }
-      main { padding: 1.5rem 1rem; }
-      header { padding: 0 1rem; }
-    }
-
-    @media (max-width: 480px) {
-      .stats-bar { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-    }
+    footer { text-align: center; padding: 2rem; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 3rem; }
+    @media (max-width: 720px) { .layout { grid-template-columns: 1fr; } .hero h1 { font-size: 28px; } main { padding: 1.5rem 1rem; } header { padding: 0 1rem; } .form-row { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { .stats-bar { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-
 <header>
-  <div class="header-left">
-    <a href="../../index.html" class="back-link">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
-      Inicio
-    </a>
-    <div class="header-sep"></div>
-    <span class="header-title">Lista de compras</span>
-  </div>
+  <a href="../../index.html" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Inicio
+  </a>
+  <div class="header-sep"></div>
+  <span class="header-title">Lista de compras</span>
 </header>
 
 <main>
-
   <div class="hero">
     <p class="hero-label">App 02</p>
     <h1>Lista de compras</h1>
@@ -476,31 +135,22 @@
   </div>
 
   <div class="layout">
-
-    <!-- FORM -->
-    <aside>
+    <aside class="sidebar">
+      <!-- FORM -->
       <div class="card">
         <p class="card-title">Agregar ítem</p>
-
         <div class="form-group">
           <label class="form-label" for="inp-name">Nombre</label>
           <input id="inp-name" class="form-input" type="text" placeholder="Ej: Tomate, Leche…" autocomplete="off" />
         </div>
-
         <div class="form-group">
           <label class="form-label" for="inp-cat">Categoría</label>
           <select id="inp-cat" class="form-select">
-            <option value="Verdulería">Verdulería</option>
-            <option value="Carnicería">Carnicería</option>
-            <option value="Lácteos">Lácteos</option>
-            <option value="Almacén" selected>Almacén</option>
-            <option value="Limpieza">Limpieza</option>
-            <option value="Panadería">Panadería</option>
-            <option value="Bebidas">Bebidas</option>
-            <option value="Otros">Otros</option>
+            <option>Verdulería</option><option>Carnicería</option><option>Lácteos</option>
+            <option selected>Almacén</option><option>Limpieza</option><option>Panadería</option>
+            <option>Bebidas</option><option>Otros</option>
           </select>
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="inp-qty">Cantidad</label>
@@ -509,55 +159,53 @@
           <div class="form-group">
             <label class="form-label" for="inp-unit">Unidad</label>
             <select id="inp-unit" class="form-select">
-              <option value="unidad">unidad</option>
-              <option value="kg">kg</option>
-              <option value="g">g</option>
-              <option value="litros">litros</option>
-              <option value="ml">ml</option>
-              <option value="pack">pack</option>
-              <option value="docena">docena</option>
-              <option value="bolsa">bolsa</option>
+              <option>unidad</option><option>kg</option><option>g</option>
+              <option>litros</option><option>ml</option><option>pack</option>
+              <option>docena</option><option>bolsa</option>
             </select>
           </div>
         </div>
-
         <button class="btn btn-primary" onclick="addItem()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Agregar ítem
         </button>
+      </div>
+
+      <!-- CHART -->
+      <div class="card">
+        <div class="card-header">
+          <p class="card-title">Distribución</p>
+          <div class="seg-toggle">
+            <button class="seg-btn active" onclick="setSegment('cat',this)">Categoría</button>
+            <button class="seg-btn" onclick="setSegment('status',this)">Estado</button>
+          </div>
+        </div>
+        <svg id="chart-svg" class="chart-svg" viewBox="0 0 160 160" width="160" height="160"></svg>
+        <div class="legend" id="chart-legend"></div>
       </div>
     </aside>
 
     <!-- LIST -->
     <section>
-      <div class="list-header">
-        <div class="filters" id="filter-bar">
-          <button class="filter-chip active" data-cat="Todos" onclick="setFilter('Todos', this)">Todos</button>
-          <button class="filter-chip" data-cat="Verdulería"  onclick="setFilter('Verdulería', this)">Verdulería</button>
-          <button class="filter-chip" data-cat="Carnicería"  onclick="setFilter('Carnicería', this)">Carnicería</button>
-          <button class="filter-chip" data-cat="Lácteos"     onclick="setFilter('Lácteos', this)">Lácteos</button>
-          <button class="filter-chip" data-cat="Almacén"     onclick="setFilter('Almacén', this)">Almacén</button>
-          <button class="filter-chip" data-cat="Limpieza"    onclick="setFilter('Limpieza', this)">Limpieza</button>
-          <button class="filter-chip" data-cat="Panadería"   onclick="setFilter('Panadería', this)">Panadería</button>
-          <button class="filter-chip" data-cat="Bebidas"     onclick="setFilter('Bebidas', this)">Bebidas</button>
-          <button class="filter-chip" data-cat="Otros"       onclick="setFilter('Otros', this)">Otros</button>
-        </div>
+      <div class="filters" id="filter-bar">
+        <button class="filter-chip active" onclick="setFilter('Todos',this)">Todos</button>
+        <button class="filter-chip" onclick="setFilter('Verdulería',this)">Verdulería</button>
+        <button class="filter-chip" onclick="setFilter('Carnicería',this)">Carnicería</button>
+        <button class="filter-chip" onclick="setFilter('Lácteos',this)">Lácteos</button>
+        <button class="filter-chip" onclick="setFilter('Almacén',this)">Almacén</button>
+        <button class="filter-chip" onclick="setFilter('Limpieza',this)">Limpieza</button>
+        <button class="filter-chip" onclick="setFilter('Panadería',this)">Panadería</button>
+        <button class="filter-chip" onclick="setFilter('Bebidas',this)">Bebidas</button>
+        <button class="filter-chip" onclick="setFilter('Otros',this)">Otros</button>
       </div>
-
-      <div style="display:flex; justify-content:flex-end; margin-bottom:1rem;">
+      <div class="list-actions">
         <button class="btn btn-danger" onclick="clearBought()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/>
-          </svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
           Limpiar comprados
         </button>
       </div>
-
       <div id="list-container"></div>
     </section>
-
   </div>
 </main>
 
@@ -567,33 +215,29 @@
 
 <script>
   const STORAGE_KEY = 'homeapps_compras_v1';
+  const CAT_COLORS = {
+    'Verdulería':'#2D6A4F','Carnicería':'#C0453A','Lácteos':'#2A5FA0',
+    'Almacén':'#C97D2A','Limpieza':'#6B4FA0','Panadería':'#E65100',
+    'Bebidas':'#1565C0','Otros':'#7A7570'
+  };
+  const CATS = Object.keys(CAT_COLORS);
+
   let items = [];
   let activeFilter = 'Todos';
+  let segment = 'cat';
 
-  function load() {
-    try {
-      items = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    } catch { items = []; }
-  }
-
-  function save() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  }
-
-  function uid() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2);
-  }
+  function load() { try { items = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { items = []; } }
+  function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); }
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
+  function escH(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function fmtQty(q,u) { return `${q%1===0?q:q.toFixed(1)} ${u}`; }
 
   function addItem() {
     const name = document.getElementById('inp-name').value.trim();
-    if (!name) {
-      document.getElementById('inp-name').focus();
-      return;
-    }
-    const cat   = document.getElementById('inp-cat').value;
-    const qty   = parseFloat(document.getElementById('inp-qty').value) || 1;
-    const unit  = document.getElementById('inp-unit').value;
-
+    if (!name) { document.getElementById('inp-name').focus(); return; }
+    const cat  = document.getElementById('inp-cat').value;
+    const qty  = parseFloat(document.getElementById('inp-qty').value) || 1;
+    const unit = document.getElementById('inp-unit').value;
     items.unshift({ id: uid(), name, cat, qty, unit, bought: false });
     save();
     document.getElementById('inp-name').value = '';
@@ -602,111 +246,132 @@
   }
 
   function toggleBought(id) {
-    const item = items.find(i => i.id === id);
+    const item = items.find(i=>i.id===id);
     if (item) { item.bought = !item.bought; save(); render(); }
   }
 
   function deleteItem(id) {
-    items = items.filter(i => i.id !== id);
-    save();
-    render();
+    items = items.filter(i=>i.id!==id);
+    save(); render();
   }
 
   function clearBought() {
-    const bought = items.filter(i => i.bought).length;
-    if (bought === 0) return;
-    if (!confirm(`¿Eliminar los ${bought} ítem(s) ya comprados?`)) return;
-    items = items.filter(i => !i.bought);
-    save();
-    render();
+    const n = items.filter(i=>i.bought).length;
+    if (!n) return;
+    if (!confirm(`¿Eliminar los ${n} ítem(s) ya comprados?`)) return;
+    items = items.filter(i=>!i.bought);
+    save(); render();
   }
 
   function setFilter(cat, el) {
     activeFilter = cat;
-    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
     el.classList.add('active');
     render();
   }
 
-  function fmtQty(qty, unit) {
-    const n = qty % 1 === 0 ? qty : qty.toFixed(1);
-    return `${n} ${unit}`;
+  function setSegment(s, el) {
+    segment = s;
+    document.querySelectorAll('.seg-btn').forEach(b=>b.classList.remove('active'));
+    el.classList.add('active');
+    renderChart();
+  }
+
+  // ---- DONUT ----
+  function drawDonut(svgId, segs) {
+    const el = document.getElementById(svgId);
+    if (!el) return;
+    const CX=80,CY=80,R=64,r=36;
+    const total = segs.reduce((s,d)=>s+d.value,0);
+    if (!total) {
+      el.innerHTML = `<circle cx="${CX}" cy="${CY}" r="${R}" fill="#E8E4DC"/><circle cx="${CX}" cy="${CY}" r="${r}" fill="var(--surface)"/><text x="${CX}" y="${CY+5}" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="11" fill="#7A7570">Sin datos</text>`;
+      return;
+    }
+    const active = segs.filter(d=>d.value>0);
+    let html = '';
+    if (active.length === 1) {
+      html = `<circle cx="${CX}" cy="${CY}" r="${R}" fill="${active[0].color}"/>`;
+    } else {
+      let a = -Math.PI/2;
+      active.forEach(d => {
+        const sw=(d.value/total)*Math.PI*2,e=a+sw,lg=sw>Math.PI?1:0;
+        const p=(ang,rad)=>[CX+rad*Math.cos(ang),CY+rad*Math.sin(ang)];
+        const [x1,y1]=p(a,R),[x2,y2]=p(e,R),[ix1,iy1]=p(a,r),[ix2,iy2]=p(e,r);
+        html+=`<path d="M${x1.toFixed(2)},${y1.toFixed(2)} A${R},${R} 0 ${lg},1 ${x2.toFixed(2)},${y2.toFixed(2)} L${ix2.toFixed(2)},${iy2.toFixed(2)} A${r},${r} 0 ${lg},0 ${ix1.toFixed(2)},${iy1.toFixed(2)} Z" fill="${d.color}"/>`;
+        a=e;
+      });
+    }
+    html+=`<circle cx="${CX}" cy="${CY}" r="${r-1}" fill="var(--surface)"/>`;
+    el.innerHTML = html;
+  }
+
+  function renderChart() {
+    let segs, fmtV;
+    if (segment === 'cat') {
+      segs = CATS.map(c => ({ label:c, color:CAT_COLORS[c], value: items.filter(i=>i.cat===c).length }));
+      fmtV = v => `${v} ítem${v!==1?'s':''}`;
+    } else {
+      const pend = items.filter(i=>!i.bought).length;
+      const comp = items.filter(i=>i.bought).length;
+      segs = [
+        { label:'Pendientes', color:'#C97D2A', value: pend },
+        { label:'Comprados',  color:'#2D6A4F', value: comp },
+      ];
+      fmtV = v => `${v} ítem${v!==1?'s':''}`;
+    }
+    const total = segs.reduce((s,d)=>s+d.value,0);
+    drawDonut('chart-svg', segs);
+    const legendEl = document.getElementById('chart-legend');
+    if (!total) { legendEl.innerHTML=''; return; }
+    legendEl.innerHTML = segs.filter(s=>s.value>0).sort((a,b)=>b.value-a.value).map(s=>`
+      <div class="legend-row">
+        <span class="legend-dot" style="background:${s.color}"></span>
+        <span class="legend-label">${s.label}</span>
+        <span class="legend-val">${fmtV(s.value)}</span>
+        <span class="legend-pct">${Math.round(s.value/total*100)}%</span>
+      </div>`).join('');
   }
 
   function render() {
-    const pending = items.filter(i => !i.bought).length;
-    const bought  = items.filter(i => i.bought).length;
-    document.getElementById('stat-pending').textContent = pending;
-    document.getElementById('stat-bought').textContent  = bought;
+    document.getElementById('stat-pending').textContent = items.filter(i=>!i.bought).length;
+    document.getElementById('stat-bought').textContent  = items.filter(i=>i.bought).length;
     document.getElementById('stat-total').textContent   = items.length;
+    renderChart();
 
-    const filtered = activeFilter === 'Todos'
-      ? items
-      : items.filter(i => i.cat === activeFilter);
-
+    const filtered = activeFilter==='Todos' ? items : items.filter(i=>i.cat===activeFilter);
     const container = document.getElementById('list-container');
 
     if (filtered.length === 0) {
-      container.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-icon">🛒</div>
-          <h3>${activeFilter === 'Todos' ? 'La lista está vacía' : 'Sin ítems en esta categoría'}</h3>
-          <p>${activeFilter === 'Todos' ? 'Agregá tu primer ítem con el formulario.' : 'Probá con otro filtro o agregá un ítem.'}</p>
-        </div>`;
+      container.innerHTML = `<div class="empty-state"><div class="empty-icon">🛒</div><h3>${activeFilter==='Todos'?'La lista está vacía':'Sin ítems en esta categoría'}</h3><p>${activeFilter==='Todos'?'Agregá tu primer ítem con el formulario.':'Probá con otro filtro o agregá un ítem.'}</p></div>`;
       return;
     }
 
-    const pending_items = filtered.filter(i => !i.bought);
-    const bought_items  = filtered.filter(i => i.bought);
+    const pend = filtered.filter(i=>!i.bought);
+    const comp = filtered.filter(i=>i.bought);
+    const itemHTML = item => `
+      <div class="item${item.bought?' bought':''}">
+        <button class="item-check" onclick="toggleBought('${item.id}')">
+          <svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg>
+        </button>
+        <div class="item-body">
+          <div class="item-name">${escH(item.name)}</div>
+          <div class="item-meta"><span class="cat-badge cat-${item.cat}">${item.cat}</span><span class="item-qty">${fmtQty(item.qty,item.unit)}</span></div>
+        </div>
+        <button class="item-delete" onclick="deleteItem('${item.id}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>`;
 
-    let html = '';
-
-    if (pending_items.length > 0) {
-      html += `<div class="items-list">` + pending_items.map(itemHTML).join('') + `</div>`;
+    let html = `<div class="items-list">${pend.map(itemHTML).join('')}</div>`;
+    if (comp.length > 0) {
+      if (pend.length > 0) html += `<p class="section-label">Comprados</p>`;
+      html += `<div class="items-list">${comp.map(itemHTML).join('')}</div>`;
     }
-
-    if (bought_items.length > 0) {
-      if (pending_items.length > 0) html += `<p class="section-label">Comprados</p>`;
-      html += `<div class="items-list">` + bought_items.map(itemHTML).join('') + `</div>`;
-    }
-
     container.innerHTML = html;
   }
 
-  function itemHTML(item) {
-    return `
-      <div class="item${item.bought ? ' bought' : ''}" id="item-${item.id}">
-        <button class="item-check" onclick="toggleBought('${item.id}')" title="${item.bought ? 'Marcar como pendiente' : 'Marcar como comprado'}">
-          <svg class="item-check-icon" viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="1.5,5 4,7.5 8.5,2.5"/>
-          </svg>
-        </button>
-        <div class="item-body">
-          <div class="item-name">${escHtml(item.name)}</div>
-          <div class="item-meta">
-            <span class="cat-badge cat-${item.cat}">${item.cat}</span>
-            <span class="item-qty">${fmtQty(item.qty, item.unit)}</span>
-          </div>
-        </div>
-        <button class="item-delete" onclick="deleteItem('${item.id}')" title="Eliminar">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
-      </div>`;
-  }
-
-  function escHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  document.getElementById('inp-name').addEventListener('keydown', e => {
-    if (e.key === 'Enter') addItem();
-  });
-
-  load();
-  render();
+  document.getElementById('inp-name').addEventListener('keydown', e => { if(e.key==='Enter') addItem(); });
+  load(); render();
 </script>
-
 </body>
 </html>
