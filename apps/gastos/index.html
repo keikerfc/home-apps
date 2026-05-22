@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script src="../../assets/js/supabase.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gastos del hogar — HomeApps</title>
@@ -226,8 +227,10 @@
   let segment = 'amount';
   let periodView = 'month';
 
-  function load() { try { expenses = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { expenses = []; } }
-  function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses)); }
+  async function load() { try { expenses = await db.gastos.getAll(); } catch(e) { expenses = []; } }
+
+  function save() {}
+
   function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
   function todayISO() { return new Date().toISOString().slice(0,10); }
   function monthKey(d) { return d.slice(0,7); }
@@ -244,7 +247,7 @@
   }
   function escH(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-  function addExpense() {
+  async function addExpense() {
     const desc = document.getElementById('inp-desc').value.trim();
     const cat  = document.getElementById('inp-cat').value;
     const amt  = parseFloat(document.getElementById('inp-amount').value);
@@ -252,7 +255,9 @@
     if (!desc) { document.getElementById('inp-desc').focus(); return; }
     if (!amt || amt <= 0) { document.getElementById('inp-amount').focus(); return; }
     if (!date) { document.getElementById('inp-date').focus(); return; }
-    expenses.unshift({ id: uid(), desc, cat, amount: amt, date });
+    const item = { id: uid(), desc, cat, amount: amt, date };
+    await db.gastos.insert(item);
+    expenses.unshift(item);
     save();
     document.getElementById('inp-desc').value = '';
     document.getElementById('inp-amount').value = '';
@@ -261,7 +266,11 @@
     render();
   }
 
-  function deleteExpense(id) {
+  async function deleteExpense(id) {
+    await db.gastos.delete(id);
+    expenses = expenses.filter(e => e.id !== id);
+    populatePeriodFilter(); render();
+  }
     expenses = expenses.filter(e => e.id !== id);
     save(); populatePeriodFilter(); render();
   }
@@ -410,10 +419,11 @@
   }
 
   document.getElementById('inp-desc').addEventListener('keydown', e => { if(e.key==='Enter') addExpense(); });
-  load();
-  document.getElementById('inp-date').value = todayISO();
-  populatePeriodFilter();
-  render();
+  load().then(() => {
+    document.getElementById('inp-date').value = todayISO();
+    populatePeriodFilter();
+    render();
+  });
 </script>
 </body>
 </html>
